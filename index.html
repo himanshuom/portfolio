@@ -53,12 +53,25 @@
       font-size: 1.3rem;
     }
 
+    .nav-toggle {
+      display: none;
+      background: var(--primary);
+      color: white;
+      border: none;
+      font-size: 1.5rem;
+      padding: 5px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
     nav ul {
       list-style: none;
       display: flex;
       gap: 15px;
       flex-wrap: wrap;
       margin-top: 10px;
+      transition: max-height 0.4s ease, opacity 0.4s ease;
+      overflow: hidden;
     }
 
     nav ul li a {
@@ -201,31 +214,24 @@
         gap: 10px;
       }
 
+      .nav-toggle {
+        display: block;
+      }
+
       nav ul {
         flex-direction: column;
         width: 100%;
+        max-height: 0;
+        opacity: 0;
+      }
+
+      nav ul.show {
+        max-height: 500px;
+        opacity: 1;
       }
 
       nav ul li {
         padding: 5px 0;
-      }
-
-      .hero img {
-        width: 100px;
-        height: 100px;
-      }
-
-      .hero h2 {
-        font-size: 1.5rem;
-      }
-
-      .hero p {
-        font-size: 0.95rem;
-      }
-
-      .btn {
-        font-size: 0.85rem;
-        padding: 6px 12px;
       }
     }
 
@@ -249,7 +255,8 @@
   <header class="hero">
     <nav>
       <h1>Himanshu</h1>
-      <ul>
+      <button class="nav-toggle" onclick="toggleMenu()">☰</button>
+      <ul id="nav-links">
         <li><a href="#about">About</a></li>
         <li><a href="#skills">Skills</a></li>
         <li><a href="#projects">Projects</a></li>
@@ -272,6 +279,7 @@
   <section id="skills" class="section">
     <h2>Skills</h2>
     <div class="skills">
+      <span>Java</span>
       <span>HTML</span>
       <span>CSS</span>
       <span>JavaScript</span>
@@ -280,7 +288,6 @@
       <span>MongoDB</span>
       <span>SQL</span>
       <span>Git</span>
-      <span>Java</span>
     </div>
   </section>
 
@@ -342,7 +349,9 @@
       document.body.classList.toggle('dark');
       localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
     }
-
+    function toggleMenu() {
+      document.getElementById('nav-links').classList.toggle('show');
+    }
     // Persist theme
     window.addEventListener('DOMContentLoaded', () => {
       if (localStorage.getItem('theme') === 'dark') {
